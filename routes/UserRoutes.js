@@ -1,11 +1,23 @@
 import express from "express";
-import { createUser, getMe, login } from "../controllers/userController.js";
 import { Protected } from "../middleware/AuthMiddleware.js";
+import {
+  changePassword,
+  createUser,
+  deleteUserAccount,
+  getMe,
+  login,
+  resetPassword,
+  updateUserDetails,
+} from "../controllers/UserController.js";
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.post("/signup", createUser);
-router.post("/login", login);
-router.get("/me", Protected, getMe);
+userRouter.post("/signup", createUser);
+userRouter.post("/login", login);
+userRouter.post("/reset-password", resetPassword);
+userRouter.get("/me", Protected, getMe);
+userRouter.post("/change-password", Protected, changePassword);
+userRouter.patch("/update", Protected, updateUserDetails);
+userRouter.delete("/delete", Protected, deleteUserAccount);
 
-export default router
+export default userRouter;

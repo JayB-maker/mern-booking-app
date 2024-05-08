@@ -35,4 +35,4 @@ const petSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-export const petModel = mongoose.Model("petModel", petSchema);
+export const petModel = mongoose.model("petModel", petSchema);

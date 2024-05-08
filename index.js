@@ -2,7 +2,9 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./mongodb/Connect.js";
-import router from "./routes/UserRoutes.js";
+import userRouter from "./routes/UserRoutes.js";
+import petRouter from "./routes/PetRoutes.js";
+import { errorHandler } from "./middleware/ErrorMiddleware.js";
 
 dotenv.config();
 
@@ -16,7 +18,11 @@ app.use(express.json({ limit: "50mb" }));
 app.get("/", async (req, res) => {
   res.send("Hello darling");
 });
-app.use("/api/v1/auth", router);
+
+app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/pet", petRouter);
+
+app.use(errorHandler)
 
 const startServer = async () => {
   try {
